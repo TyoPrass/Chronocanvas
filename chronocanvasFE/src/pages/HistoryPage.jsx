@@ -45,7 +45,8 @@ export default function HistoryPage() {
 
   const handleDownload = (imageUrl, prompt) => {
     const link = document.createElement('a');
-    link.href = `http://localhost:3000${imageUrl}`;
+    // link.href = `http://localhost:3000${imageUrl}`; // Local Development
+    link.href = `https://chronocanvas-pi.vercel.app${imageUrl}`;
     link.download = `chronocanvas_${prompt.slice(0, 30).replace(/\s+/g, '_')}.png`;
     document.body.appendChild(link);
     link.click();
@@ -175,7 +176,8 @@ export default function HistoryPage() {
                   }}
                 >
                   <img
-                    src={`http://localhost:3000${item.imageUrl}`}
+                    // src={`http://localhost:3000${item.imageUrl}`} /* Local */
+                    src={`https://chronocanvas-pi.vercel.app${item.imageUrl}`}
                     alt={item.prompt}
                     style={{
                       width: '100%',
@@ -246,7 +248,8 @@ export default function HistoryPage() {
             }}
           >
             <img
-              src={`http://localhost:3000${selectedImage.imageUrl}`}
+              // src={`http://localhost:3000${selectedImage.imageUrl}`} /* Local */
+              src={`https://chronocanvas-pi.vercel.app${selectedImage.imageUrl}`}
               alt={selectedImage.prompt}
               style={{ width: '100%', display: 'block' }}
             />

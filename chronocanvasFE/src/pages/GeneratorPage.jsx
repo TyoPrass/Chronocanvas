@@ -68,7 +68,8 @@ export default function GeneratorPage() {
       const response = await api.post('/history/generate', { prompt });
       if (response.data.success) {
         // Bangun URL gambar dari imageUrl yang dikembalikan backend
-        const imageUrl = `http://localhost:3000${response.data.data.imageUrl}`;
+        // const imageUrl = `http://localhost:3000${response.data.data.imageUrl}`; // Local
+        const imageUrl = `https://chronocanvas-pi.vercel.app${response.data.data.imageUrl}`;
         setGeneratedImage(imageUrl);
       } else {
         setError(response.data.message || 'Gagal membuat gambar');
