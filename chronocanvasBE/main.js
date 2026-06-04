@@ -12,10 +12,10 @@ const app = express();
 connectDB();
 
 app.use(cors());
-app.use(express.json({ limit: '50mb' })); // Limit diperbesar untuk menerima base64 besar
+app.use(express.json({ limit: "50mb" })); // Limit diperbesar untuk menerima base64 besar
 
 // Sajikan folder public agar frontend bisa mengakses gambar
-app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 app.use("/api", userRoutes);
 app.use("/api", historyRoutes);
@@ -28,9 +28,12 @@ app.get("/", (req, res) => {
   res.send("Chronocanvas Backend is running on Vercel! 🚀");
 });
 
-app.listen(PORT, HOST, () => {
-  console.log(`Server berjalan di http://${HOST}:${PORT}`);
-});
+// Hanya jalankan app.listen saat di lokal, BUKAN di Vercel
+if (!process.env.VERCEL) {
+  app.listen(PORT, HOST, () => {
+    console.log(`Server berjalan di http://${HOST}:${PORT}`);
+  });
+}
 
 // WAJIB UNTUK VERCEL: Export app agar bisa dibaca oleh Vercel Serverless
 module.exports = app;
