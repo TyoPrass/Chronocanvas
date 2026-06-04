@@ -26,3 +26,6 @@ const HOST = process.env.HOST || "localhost";
 app.listen(PORT, HOST, () => {
   console.log(`Server berjalan di http://${HOST}:${PORT}`);
 });
+
+// WAJIB UNTUK VERCEL: Export app agar bisa dibaca oleh Vercel Serverless
+module.exports = app;
