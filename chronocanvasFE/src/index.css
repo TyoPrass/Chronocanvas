@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Color Palette */
+  --primary: #3B3BFF;
+  --primary-dark: #2828CC;
+  --primary-light: #6B6BFF;
+  --primary-bg: rgba(59, 59, 255, 0.08);
+  --primary-border: rgba(59, 59, 255, 0.25);
+
+  --text: #5c5c7a;
+  --text-h: #0f0e1a;
+  --text-muted: #8b8ba0;
+  --bg: #f3f4ff;
+  --bg-card: #ffffff;
+  --border: #e2e2f0;
+  --shadow-sm: 0 2px 8px rgba(59, 59, 255, 0.08);
+  --shadow-md: 0 8px 32px rgba(59, 59, 255, 0.12);
+  --shadow-lg: 0 20px 60px rgba(59, 59, 255, 0.15);
+
+  --navbar-height: 64px;
+
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-h);
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}

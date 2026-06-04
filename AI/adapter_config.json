@@ -1,0 +1,12 @@
+{
+  "peft_type": "LORA",
+  "base_model_name_or_path": "runwayml/stable-diffusion-v1-5",
+  "task_type": null,
+  "inference_mode": true,
+  "r": 64,
+  "lora_alpha": 64,
+  "lora_dropout": 0.1,
+  "target_modules": ["to_q", "to_v", "to_k", "to_out.0", "proj_in", "proj_out", "ff.net.0.proj", "ff.net.2"],
+  "fan_in_fan_out": false,
+  "bias": "none"
+}
