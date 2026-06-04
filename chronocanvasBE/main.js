@@ -12,10 +12,10 @@ const app = express();
 connectDB();
 
 app.use(cors());
-app.use(express.json({ limit: "50mb" })); // Limit diperbesar untuk menerima base64 besar
+app.use(express.json({ limit: '50mb' })); // Limit diperbesar untuk menerima base64 besar
 
 // Sajikan folder public agar frontend bisa mengakses gambar
-app.use("/public", express.static(path.join(__dirname, "public")));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use("/api", userRoutes);
 app.use("/api", historyRoutes);
@@ -25,7 +25,7 @@ const HOST = process.env.HOST || "localhost";
 
 // Route dasar untuk mengecek apakah server jalan
 app.get("/", (req, res) => {
-  res.send("Jalan dengan baik!");
+  res.send("Chronocanvas Backend is running on Vercel! 🚀");
 });
 
 app.listen(PORT, HOST, () => {

@@ -78,30 +78,42 @@ exports.getUserById = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    const updateData = {};
+    // PROTEKSI: Pastikan user hanya bisa mengedit profilnya sendiri
+    if (req.params.id !== req.userId) {
+      return res.status(403).json({ success: false, message: "Akses ditolak. Anda hanya bisa mengubah profil Anda sendiri." });
+    }
 
-    if (username) updateData.username = username;
-    if (email) updateData.email = email;
-    if (password) updateData.password = password;
+    const { username } = req.body;
 
-    const user = await User.findByIdAndUpdate(req.params.id, updateData, {
-      new: true,
-      runValidators: true,
-    }).select("-password");
+    if (!username) {
+      return res.status(400).json({ success: false, message: "Username baru harus diisi" });
+    }
+
+    // Cari user terlebih dahulu
+    const user = await User.findById(req.userId);
 
     if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User tidak ditemukan" });
+      return res.status(404).json({ success: false, message: "User tidak ditemukan" });
     }
+
+    // Hanya ubah username
+    user.username = username;
+    await user.save();
 
     res.status(200).json({
       success: true,
-      message: "User berhasil diupdate",
-      data: user,
+      message: "Username berhasil diupdate",
+      data: {
+        _id: user._id,
+        username: user.username,
+        email: user.email
+      },
     });
   } catch (error) {
+    // Tangani error duplicate username (kode 11000 dari MongoDB)
+    if (error.code === 11000) {
+      return res.status(400).json({ success: false, message: "Username sudah digunakan oleh orang lain" });
+    }
     res.status(500).json({ success: false, message: error.message });
   }
 };
