@@ -69,7 +69,7 @@ export default function GeneratorPage() {
       if (response.data.success) {
         // Bangun URL gambar dari imageUrl yang dikembalikan backend
         // const imageUrl = `http://localhost:3000${response.data.data.imageUrl}`; // Local
-        const imageUrl = `https://chronocanvas-ykf9.vercel.app${response.data.data.imageUrl}`;
+        const imageUrl = response.data.data.imageUrl; // Cloudinary URL (sudah lengkap)
         setGeneratedImage(imageUrl);
       } else {
         setError(response.data.message || 'Gagal membuat gambar');
