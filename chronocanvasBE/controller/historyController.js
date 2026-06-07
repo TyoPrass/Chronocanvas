@@ -61,15 +61,15 @@ exports.generateImage = async (req, res) => {
       // ========================================================
       // 1. [VERSI VERCEL / ONLINE] - Simpan ke Cloudinary
       // ========================================================
-      // const uploadResult = await cloudinary.uploader.upload(
-      //   `data:image/png;base64,${base64Data}`,
-      //   {
-      //     folder: "chronocanvas",
-      //     public_id: `generated_${userId}_${Date.now()}`,
-      //     resource_type: "image",
-      //   }
-      // );
-      // const imageUrl = uploadResult.secure_url;
+      const uploadResult = await cloudinary.uploader.upload(
+        `data:image/png;base64,${base64Data}`,
+        {
+          folder: "chronocanvas",
+          public_id: `generated_${userId}_${Date.now()}`,
+          resource_type: "image",
+        }
+      );
+      const imageUrl = uploadResult.secure_url;
 
       // ========================================================
       // 2. [VERSI LOKAL] - Simpan ke hard disk laptop
@@ -77,14 +77,14 @@ exports.generateImage = async (req, res) => {
       // lalu uncomment/aktifkan kode di bawah ini.
       // (JANGAN pakai versi lokal saat deploy ke Vercel)
       // ========================================================
-      const fileName = `generated_${userId}_${Date.now()}.png`;
-      const publicDir = path.join(__dirname, "..", "public", "generated");
-      if (!fs.existsSync(publicDir)) {
-        fs.mkdirSync(publicDir, { recursive: true });
-      }
-      const filePath = path.join(publicDir, fileName);
-      fs.writeFileSync(filePath, base64Data, "base64");
-      const imageUrl = `/public/generated/${fileName}`;
+      // const fileName = `generated_${userId}_${Date.now()}.png`;
+      // const publicDir = path.join(__dirname, "..", "public", "generated");
+      // if (!fs.existsSync(publicDir)) {
+      //   fs.mkdirSync(publicDir, { recursive: true });
+      // }
+      // const filePath = path.join(publicDir, fileName);
+      // fs.writeFileSync(filePath, base64Data, "base64");
+      // const imageUrl = `/public/generated/${fileName}`;
       // ========================================================
 
       const newHistory = await History.create({
