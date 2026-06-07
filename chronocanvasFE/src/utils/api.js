@@ -1,11 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  // --- JIKA INGIN RUN LOKAL, UNCOMMENT BARIS INI DAN COMMENT BARIS VERCEL ---
-  baseURL: 'http://localhost:3000/api', 
-  
-  // --- JIKA DI VERCEL, GUNAKAN BARIS INI ---
-  // baseURL: 'https://chronocanvas-ykf9.vercel.app/api',  
+  // Otomatis memilih URL berdasarkan environment (lokal vs production/Vercel)
+  baseURL: import.meta.env.PROD ? 'https://chronocanvas-ykf9.vercel.app/api' : 'http://localhost:3000/api', 
   headers: {
     'Content-Type': 'application/json',
   },

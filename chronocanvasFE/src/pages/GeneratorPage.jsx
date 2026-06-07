@@ -67,9 +67,10 @@ export default function GeneratorPage() {
     try {
       const response = await api.post('/history/generate', { prompt });
       if (response.data.success) {
-        // Otomatis deteksi: jika URL dari Cloudinary (http), pakai langsung. Jika lokal (/public), tambah awalan localhost.
+        // Otomatis deteksi: jika URL dari Cloudinary (http), pakai langsung. Jika lokal (/public), tambah awalan sesuai environment.
         const imageUrl = response.data.data.imageUrl;
-        setGeneratedImage(imageUrl.startsWith('http') ? imageUrl : `http://localhost:3000${imageUrl}`);
+        const backendUrl = import.meta.env.PROD ? 'https://chronocanvas-ykf9.vercel.app' : 'http://localhost:3000';
+        setGeneratedImage(imageUrl.startsWith('http') ? imageUrl : `${backendUrl}${imageUrl}`);
       } else {
         setError(response.data.message || 'Gagal membuat gambar');
       }

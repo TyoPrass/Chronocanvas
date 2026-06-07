@@ -45,8 +45,9 @@ export default function HistoryPage() {
 
   const handleDownload = (imageUrl, prompt) => {
     const link = document.createElement('a');
-    // Otomatis deteksi: jika URL dari Cloudinary (http), pakai langsung. Jika lokal (/public), tambah awalan localhost.
-    link.href = imageUrl.startsWith('http') ? imageUrl : `http://localhost:3000${imageUrl}`;
+    // Otomatis deteksi: jika URL dari Cloudinary (http), pakai langsung. Jika lokal (/public), tambah awalan sesuai environment.
+    const backendUrl = import.meta.env.PROD ? 'https://chronocanvas-ykf9.vercel.app' : 'http://localhost:3000';
+    link.href = imageUrl.startsWith('http') ? imageUrl : `${backendUrl}${imageUrl}`;
     link.download = `chronocanvas_${prompt.slice(0, 30).replace(/\s+/g, '_')}.png`;
     document.body.appendChild(link);
     link.click();
@@ -176,8 +177,8 @@ export default function HistoryPage() {
                   }}
                 >
                   <img
-                    // Otomatis deteksi lokal vs Cloudinary
-                    src={item.imageUrl.startsWith('http') ? item.imageUrl : `http://localhost:3000${item.imageUrl}`}
+                    // Otomatis deteksi lokal vs Cloudinary, dan menyesuaikan environment
+                    src={item.imageUrl.startsWith('http') ? item.imageUrl : `${import.meta.env.PROD ? 'https://chronocanvas-ykf9.vercel.app' : 'http://localhost:3000'}${item.imageUrl}`}
                     alt={item.prompt}
                     style={{
                       width: '100%',
@@ -248,8 +249,8 @@ export default function HistoryPage() {
             }}
           >
             <img
-              // Otomatis deteksi lokal vs Cloudinary
-              src={selectedImage.imageUrl.startsWith('http') ? selectedImage.imageUrl : `http://localhost:3000${selectedImage.imageUrl}`}
+              // Otomatis deteksi lokal vs Cloudinary, dan menyesuaikan environment
+              src={selectedImage.imageUrl.startsWith('http') ? selectedImage.imageUrl : `${import.meta.env.PROD ? 'https://chronocanvas-ykf9.vercel.app' : 'http://localhost:3000'}${selectedImage.imageUrl}`}
               alt={selectedImage.prompt}
               style={{ width: '100%', display: 'block' }}
             />
