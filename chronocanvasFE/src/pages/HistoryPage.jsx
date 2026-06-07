@@ -45,8 +45,8 @@ export default function HistoryPage() {
 
   const handleDownload = (imageUrl, prompt) => {
     const link = document.createElement('a');
-    // link.href = `http://localhost:3000${imageUrl}`; // Local Development
-    link.href = imageUrl; // Cloudinary URL (sudah lengkap)
+    // Otomatis deteksi: jika URL dari Cloudinary (http), pakai langsung. Jika lokal (/public), tambah awalan localhost.
+    link.href = imageUrl.startsWith('http') ? imageUrl : `http://localhost:3000${imageUrl}`;
     link.download = `chronocanvas_${prompt.slice(0, 30).replace(/\s+/g, '_')}.png`;
     document.body.appendChild(link);
     link.click();
@@ -176,8 +176,8 @@ export default function HistoryPage() {
                   }}
                 >
                   <img
-                    // src={`http://localhost:3000${item.imageUrl}`} /* Local */
-                    src={item.imageUrl} // Cloudinary URL
+                    // Otomatis deteksi lokal vs Cloudinary
+                    src={item.imageUrl.startsWith('http') ? item.imageUrl : `http://localhost:3000${item.imageUrl}`}
                     alt={item.prompt}
                     style={{
                       width: '100%',
@@ -248,8 +248,8 @@ export default function HistoryPage() {
             }}
           >
             <img
-              // src={`http://localhost:3000${selectedImage.imageUrl}`} /* Local */
-              src={selectedImage.imageUrl} // Cloudinary URL
+              // Otomatis deteksi lokal vs Cloudinary
+              src={selectedImage.imageUrl.startsWith('http') ? selectedImage.imageUrl : `http://localhost:3000${selectedImage.imageUrl}`}
               alt={selectedImage.prompt}
               style={{ width: '100%', display: 'block' }}
             />
